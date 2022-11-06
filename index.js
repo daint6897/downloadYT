@@ -69,10 +69,4 @@ app.get('/download', async (req, res) => {
             }
         }
     )
-
-
-    // res.header("Content-Disposition", 'attachment; filename="Video.mp4');
-    // ytdl(url, {
-    //     format: 'mp4'
-    // }).pipe(res);
 });
