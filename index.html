@@ -1,34 +1,108 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>ahihi</title>
-        <meta charset="utf-8" />
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <style type="text/css">
-            #banner .container-fluid .jumbotron{
-                background: transparent;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="banner">
-            <div class="container-fluid">
 
-                <div class="row">
-                    <div class="col-md-4 offset-md-4">
-                        <form action="/download/" method="GET">
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="url"  required />
-                            </div>
-                            <div class="form-group text-center">
-                                <input class="btn btn-primary" type="submit" value="Download" />
-                            </div>
-                        </form>
-                    </div>
+<head>
+    <title>ahihi</title>
+    <meta charset="utf-8" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="dist/css/rtop.videoPlayer.VERSION.min.css" />
+    <script src="https://code.jquery.com/jquery-VERSION.slim.min.js"></script>
+    <script type="text/javascript" src="/dist/js/rtop.videoPlayer.ERSION.min.js"></script>
+    <style type="text/css">
+        #banner .container-fluid .jumbotron {
+            background: transparent;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
+</head>
+
+<body>
+    <div id="banner">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    <form action="/download/" method="GET">
+                        <div class="form-group">
+                            <input id="idVid" class="form-control" type="text" name="url" required />
+                        </div>
+                        <div class="form-group text-center">
+                            <input class="btn btn-primary" type="submit" value="Download" />
+                        </div>
+                    </form>
+                    <button id="viewVid">view</button>
+                    <button id="viewVid2">view22</button>
                 </div>
             </div>
         </div>
-    </body>
+
+        <div id="divVideo">
+
+            <!-- <video controls width="320" height="240">
+                <source src="test1.mp4" type="video/mp4" />
+            </video> -->
+
+            <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+                <source src="" type="video/mp4" />
+                <source src="" type="video/webm" />
+
+                <!-- Captions are optional -->
+                <track kind="captions" label="English captions" src="/path/to/captions.vtt" srclang="en" default />
+            </video>
+
+
+            <div id="example" data-video="/download?url=q9mRCThzpOY" data-type="video/mp4">
+            </div>
+            <input type="range">
+        </div>
+
+        <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
+        <script>
+            $("#viewVid").click(function () {
+                var videoFile = "/download?url=" + $('#idVid').val();
+                $('#divVideo video source').attr('src', videoFile);
+                $("#divVideo video")[0].load();
+                const player = new Plyr('#player');
+            });
+
+            $("#viewVid2").click(function () {
+                var videoFile = "/view?url=" + $('#idVid').val();
+                $('#divVideo video source').attr('src', videoFile);
+                $("#divVideo video")[0].load();
+                // var videoFile = "/download?url="+$('#idVid').val();
+                // $.ajax({
+                //       url: "/view?url="+$('#idVid').val(),
+                //       type: 'GET',
+                //       //dataType: 'json', // added data type
+                //       success: function(res) {
+
+                //           alert(1);
+                //       }
+                //   });
+            });
+
+
+            $(document).ready(function () {
+                console.log("ready!");
+                var myPlayer = $('#example').RTOP_VideoPlayer({
+                    showControls: true,
+                    showControlsOnHover: true,
+                    controlsHoverSensitivity: 3000,
+                    showScrubber: true,
+                    showTimer: false,
+                    showPlayPauseBtn: true,
+                    showSoundControl: false,
+                    showFullScreen: false,
+                    keyboardControls: true,
+                });
+            });
+        </script>
+</body>
+
 </html>
